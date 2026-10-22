@@ -13,6 +13,9 @@ const crypto = require('crypto')
 const env = loadEnv()
 const app = express()
 
+// Behind proxies (Render, the Next.js rewrite) so req.ip / x-forwarded-for are meaningful.
+app.set('trust proxy', true)
+
 app.use(
   cors({
     origin(origin, callback) {
@@ -69,6 +72,6 @@ app.use('/api/admin', adminRoutes)
 app.use(notFound)
 app.use(errorHandler)
 
-app.listen(env.port, () => {
-  console.log(`🚀 Server listening on port ${env.port}`)
+app.listen(env.port, env.host, () => {
+  console.log(`🚀 API listening on ${env.host || 'all interfaces'}:${env.port}`)
 })

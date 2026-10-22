@@ -1,18 +1,36 @@
 services:
+  # One web service runs both apps (see scripts/start.mjs):
+  #   Next.js on Render's $PORT (public) → rewrites /api/* → Express on 127.0.0.1:$API_PORT
   - type: web
-    name: portfolio-api
-    runtime: docker
-    dockerfilePath: ./server/Dockerfile
-    dockerContext: .
+    name: portfolio
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
-      - key: NODE_ENV
-        value: production
+      - key: NODE_VERSION
+        value: "22"
+      # Internal Express port. Used at build time too (baked into the /api rewrite).
+      - key: API_PORT
+        value: "5000"
+      # Keep Puppeteer's Chrome (resume PDFs) inside the project so the copy
+      # downloaded during the build is still there at runtime.
+      - key: PUPPETEER_CACHE_DIR
+        value: /opt/render/project/src/.cache/puppeteer
+      # ── Secrets: set these in the Render dashboard ──
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
-      - key: CLIENT_ORIGIN
+      - key: NEXT_PUBLIC_SUPABASE_URL
         sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      # Comma-separated Supabase login emails allowed into the CMS. Required:
+      # the admin API refuses everyone in production when this is empty.
       - key: ADMIN_EMAILS
         sync: false
+      # Leave NEXT_PUBLIC_PORTFOLIO_API_BASE_URL unset: the site then calls its
+      # own /api, which is proxied to Express. CLIENT_ORIGIN is only needed for
+      # extra domains; the Render URL is allowed automatically.

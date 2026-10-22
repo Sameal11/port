@@ -13,9 +13,13 @@
     "build:client": "npm run build --workspace client",
     "lint:client": "npm run lint --workspace client",
     "start:client": "npm run start --workspace client",
-    "start:server": "npm run start --workspace server"
+    "start:server": "npm run start --workspace server",
+    "start": "node scripts/start.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

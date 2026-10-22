@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "postinstall": "node scripts/install-browser.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.104.1",

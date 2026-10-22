@@ -10,6 +10,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY client/package.json client/package.json
 COPY server/package.json server/package.json
+COPY server/scripts server/scripts
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 RUN npm ci --omit=dev --workspace server
 

@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #141414;
+  --bg-card: #1a1a1a;
+  --border: #2a2a2a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888888;
+  --text-muted: #555555;
+  --accent: #d4d4d4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Syne', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  caret-color: auto;
+}
+
+/* Hide scrollbar global */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* IE + Edge lama */
+body {
+  -ms-overflow-style: none;
+}
+
+input,
+textarea,
+select {
+  caret-color: auto;
+  color: inherit;
+  background-color: transparent;
+  font-family: inherit;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ─── Admin CMS ─────────────────────────────────────────────────────────────
+   Mirrors the public portfolio: near-black canvas, faint grid, DM Mono labels,
+   violet → cyan accent. Inputs stay dark with high-contrast text. */
+.admin-shell {
+  background-color: #080808;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-attachment: fixed;
+}
+
+.admin-panel input:not([type='checkbox']):not([type='radio']):not([type='color']):not([type='file']),
+.admin-panel textarea,
+.admin-panel select,
+.admin-input {
+  background-color: #111111 !important;
+  color: #f2f2f2 !important;
+  caret-color: #c4b5fd !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.admin-panel input:focus,
+.admin-panel textarea:focus,
+.admin-panel select:focus {
+  border-color: rgba(167, 139, 250, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.admin-panel input::placeholder,
+.admin-panel textarea::placeholder,
+.admin-input::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.admin-panel select option {
+  background-color: #111111;
+  color: #f2f2f2;
+}
+
+/* Keep browser autofill from turning fields white */
+.admin-panel input:-webkit-autofill,
+.admin-panel input:-webkit-autofill:hover,
+.admin-panel input:-webkit-autofill:focus,
+.admin-panel textarea:-webkit-autofill {
+  -webkit-text-fill-color: #f2f2f2 !important;
+  -webkit-box-shadow: 0 0 0 1000px #111111 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Tag input wrapper */
+.admin-panel .cursor-text {
+  background-color: #111111 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.admin-panel .cursor-text input {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Visible keyboard focus for every control in the CMS */
+.admin-shell a:focus-visible,
+.admin-shell button:focus-visible {
+  outline: 2px solid rgba(167, 139, 250, 0.8);
+  outline-offset: 2px;
+}
+
+/* Scrollbars are hidden site-wide; the CMS needs them for long tables/forms */
+.admin-shell *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.admin-shell *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
+/* ─── Accessibility ──────────────────────────────────────────────────────── */
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible,
+[role='tab']:focus-visible {
+  outline: 2px solid rgba(167, 139, 250, 0.85);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

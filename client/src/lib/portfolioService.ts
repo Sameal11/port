@@ -582,9 +582,10 @@ export async function fetchPortfolioData() {
   })
 
   if (!hasAnyData) {
-    throw new Error(
-      'Portfolio API did not return any data. Set NEXT_PUBLIC_PORTFOLIO_API_BASE_URL to your Express backend.'
+    console.error(
+      '[portfolio] The API returned no data. Check that /api/portfolio responds and that NEXT_PUBLIC_PORTFOLIO_API_BASE_URL is unset in production.'
     )
+    throw new Error("Couldn't load portfolio content right now. Please refresh in a moment.")
   }
 
   return sections

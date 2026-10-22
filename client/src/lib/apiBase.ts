@@ -32,6 +32,10 @@ export function getApiBaseUrl() {
     const url = new URL(configured)
     const pageHost = window.location.hostname
     if (LOCAL_HOSTS.includes(url.hostname) && !LOCAL_HOSTS.includes(pageHost)) {
+      // A deployed build must never point visitors at "localhost" (their own
+      // machine). This happens when a local .env value is copied to the host's
+      // settings, so fall back to the site's own /api instead of failing.
+      if (process.env.NODE_ENV === 'production') return '/api'
       url.hostname = pageHost
       return url.toString().replace(/\/$/, '')
     }

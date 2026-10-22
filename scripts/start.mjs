@@ -16,7 +16,11 @@ const PORT = process.env.PORT || '3000'
 const API_PORT = process.env.API_PORT || '5000'
 
 if (PORT === API_PORT) {
-  console.error(`[start] PORT and API_PORT are both ${PORT}; set API_PORT to a different port.`)
+  console.error(
+    `[start] PORT and API_PORT are both ${PORT}. On Render, delete the PORT environment ` +
+      `variable (Render assigns it automatically); keep API_PORT=${API_PORT}. ` +
+      `Locally, run e.g. PORT=3000 API_PORT=5000 npm start.`
+  )
   process.exit(1)
 }
 
